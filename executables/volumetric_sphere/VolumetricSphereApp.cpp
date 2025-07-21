@@ -122,28 +122,6 @@ void VolumetricSphereApp::Run()
 
     _time.reset();
 
-    {// Grid renderer
-        _gridPipeline = std::make_shared<GridPipeline>(_sceneRenderPass->GetRenderPass());
-        _gridRenderer = std::make_unique<GridRenderer>(_gridPipeline);
-    }
-
-    {// Camera
-        _camera = std::make_unique<MFA::ArcballCamera>(
-            [this]()->VkExtent2D
-            {
-                return _sceneWindowSize;
-            },
-            [this]()->bool{return _sceneWindowFocused;},
-            glm::vec3{},
-            -Math::ForwardVec3
-        );
-        _camera->SetfovDeg(40.0f);
-        _camera->SetLocalPosition(glm::vec3{20.0f, 20.0f, 20.0f});
-        _camera->SetfarPlane(1000.0f);
-        _camera->SetnearPlane(0.010f);
-        _camera->SetmaxDistance(100.0f);
-    }
-
     LogicalDevice::DeviceWaitIdle();
 }
 
